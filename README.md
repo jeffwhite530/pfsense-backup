@@ -14,7 +14,7 @@ This is a good method for testing to ensure all the parameters are correct. If t
 
 Running this command will start the container, connect to the PFSense host specified with the credentials provided and retrieve a backup. The backup file will be placed in the directory the command was run from, the container will then quit.
 ```
-docker run --rm --volume $(pwd):/data --env PFSENSE_USER=backupuser--env PFSENSE_IP=192.168.0.1 --env PFSENSE_PASS=changeme --env PFSENSE_SCHEME=https zxjinn/pfsense-backup
+docker run --rm --volume $(pwd):/data --env PFSENSE_USER=backupuser --env PFSENSE_IP=192.168.0.1 --env PFSENSE_PASS=changeme --env PFSENSE_SCHEME=https zxjinn/pfsense-backup
 ```
 #### Continuous container
 It's recommended to test the parameters with the one-time version above before trying the continuous backup mode out.
