@@ -2,8 +2,7 @@
 
 
 # function definition
-function do_backup()
-{
+function do_backup() {
   wget -qO- --keep-session-cookies --save-cookies cookies.txt \
     --no-check-certificate ${url}/diag_backup.php \
     | grep "name='__csrf_magic'" | sed 's/.*value="\(.*\)".*/\1/' > csrf.txt
@@ -17,7 +16,9 @@ function do_backup()
   wget --keep-session-cookies --load-cookies cookies.txt --no-check-certificate \
     --post-data "download=download${getrrd}&__csrf_magic=$(head -n 1 csrf2.txt)" \
     ${url}/diag_backup.php -q -O ${destination}/config-${PFSENSE_IP}-${timestamp}.xml
+
   return_value=$?
+
   if [ $return_value -eq 0 ]; then
     echo "Backup saved as ${destination}/config-${PFSENSE_IP}-${timestamp}.xml"
   else
@@ -25,7 +26,7 @@ function do_backup()
     exit 1
   fi
 
-  rm cookies.txt csrf.txt csrf2.txt
+  rm -f cookies.txt csrf.txt csrf2.txt
 }
 
 # main execution
@@ -60,11 +61,14 @@ timestamp=$(date +%Y%m%d%H%M%S)
 
 if [ $cron -eq 1 ]; then
   if [ -z "$FROM_CRON" ]; then
+	echo "cron option is enabled with schedule: $PFSENSE_CRON_SCHEDULE"
     echo "$PFSENSE_CRON_SCHEDULE FROM_CRON=1 /pfsense-backup.sh" | crontab -
     crond -f
   else
+	echo "cron option not enabled, doing one-shot backup"
     do_backup
   fi
 else
   do_backup
 fi
+
