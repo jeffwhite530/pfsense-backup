@@ -1,5 +1,3 @@
-# zxjinn/pfsense-backup
-
 ## Short description
 Runs a lightweight Alpine container to back up PFSense.
 
