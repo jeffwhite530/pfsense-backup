@@ -29,6 +29,12 @@ function do_backup() {
   rm -f cookies.txt csrf.txt csrf2.txt
 }
 
+function remove_old_backups() {
+  echo "Removing backup files older than ${RM_BACKUPS_MAX_AGE_DAYS} days"
+
+  find ${destination} -name '*.xml' -mtime +${RM_BACKUPS_MAX_AGE_DAYS} -exec rm -f '{}' \;
+}
+
 # main execution
 # check for required parameters
 errors=0
@@ -70,5 +76,9 @@ if [ $cron -eq 1 ]; then
   fi
 else
   do_backup
+fi
+
+if [ ! -z "$RM_BACKUPS_MAX_AGE_DAYS" ]; then
+  remove_old_backups
 fi
 

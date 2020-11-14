@@ -33,6 +33,7 @@ docker run --detach --volume $(pwd):/data --env PFSENSE_USER=backupuser --env PF
 - `PFSENSE_BACK_UP_RRD_DATA`. Optional. Should be either 1 or 0. This parameters is not validated. Include RRD data in the backup? 1=yes, 0=no. Default=1
 - `PFSENSE_BACKUP_DESTINATION_DIR`. Optional. What is the destination directory to back up to. This directory must exist and be writable. Default=/data
 - `TZ` Optional. What time zone the container should use. Default=UTC
+- `RM_BACKUPS_MAX_AGE_DAYS` Optional. Remove backups older than this many days.
 
 ## Help!
 - Is the username correct?
