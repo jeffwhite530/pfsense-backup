@@ -68,8 +68,7 @@ This repository includes a Packer template (`pfsense-backup.pkr.hcl`) to build a
 packer init pfsense-backup.pkr.hcl
 
 # Build the image
-
-
+packer build pfsense-backup.pkr.hcl
 ```
 
 ## Running as a Container
